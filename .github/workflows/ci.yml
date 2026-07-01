@@ -1,0 +1,37 @@
+yaml
+name: Мой первый пайплайн
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Забираем код
+        uses: actions/checkout@v4
+      
+      - name: Создаем простой HTML-сайт
+        run: |
+          echo "<h1>Привет, мир!</h1><p>Мой первый пайплайн работает!</p>" > index.html
+          echo "Файл index.html создан!"
+      
+      - name: Проверяем, что файл создался
+        run: |
+          if [ -f "index.html" ]; then
+            echo "✅ Файл существует, всё ок!"
+          else
+            echo "❌ Ошибка: файл не найден"
+            exit 1
+          fi
+      
+      - name: Выводим содержимое сайта (для красоты)
+        run: cat index.html
+      
+      - name: Сохраняем сайт как артефакт
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-website
+          path: index.html
