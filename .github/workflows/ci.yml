@@ -1,7 +1,7 @@
 name: Мой первый пайплайн
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 jobs:
   build:
     runs-on: ubuntu-latest
